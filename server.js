@@ -5,6 +5,12 @@ const socketio = require("socket.io")
 const formatMessage = require("./utils/messages")
 const {setUser, findUser, deleteUser, countRoom, getUsers} = require("./utils/users")
 
+const db = require("./db")
+db.connect((err)=>{
+    if(err){throw err};
+    console.log("Mysql conncected")
+})
+
 const app = express()
 
 app.use(express.static(path.join(__dirname, "public")))
@@ -14,8 +20,15 @@ const io = socketio(server)
 
 io.on("connection", socket=>{
     console.log("New WS Connection...")
-
+    db.query("create database if not exists CHATAPP", err=>{
+        if(err) throw err
+    })
+    db.query("use CHATAPP", err=> {
+        if(err) throw err
+    })
+    
     socket.on("JoinRoom", ({username, room})=>{
+        
         setUser(socket.id, username, room)
         socket.join(room)
         socket.emit("message", formatMessage("Admin",`${username} welcome to the ${room} chatroom :)`))
