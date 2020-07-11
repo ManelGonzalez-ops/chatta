@@ -61,17 +61,18 @@ const arrayRooms = ["Javascript", "Python", "PHP", "C#", "Ruby", "Java"]
 
 
 socket.on("users", socket => {
-
+console.log(socket, "sooocket")
     document.getElementById("room-name").innerText = room
-
-    populateUsers(socket)
+   const users = JSON.parse(JSON.stringify([...socket]))
+    populateUsers(users)
 
 })
 
 function populateUsers(users) {
 console.log(users, "mamama")
 document.querySelector("#users").innerHTML = ""
-    users.forEach(user => {
+const usersRoom = users.filter(user=>user.room === room)
+    usersRoom.forEach(user => {
         let li = document.createElement("li")
         li.innerText = user.name
         li.className = "user"
