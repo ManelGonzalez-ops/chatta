@@ -14,16 +14,16 @@ db.connect((err) => {
 
 const app = express()
 
-app.use(express.static(path.join(__dirname, "public")))
+// app.use(express.static(path.join(__dirname, "public")))
 
 const server = http.createServer(app)
 const io = socketio(server)
 
-db.query("create database if not exists CHATAPP", err => {
-    console.log("crear chatapp?")
-    if (err) throw err
-})
-db.query("use CHATAPP", err => {
+// db.query("create database if not exists CHATAPP", err => {
+//     console.log("crear chatapp?")
+//     if (err) throw err
+// })
+db.query("use sql7356176git", err => {
     console.log("usar chatapp?")
     if (err) throw err
 })
@@ -50,7 +50,7 @@ io.on("connection", socket => {
         //it's seen for everyone but not the user who connects
         socket.broadcast.to(room).emit("message", formatMessage("Admin", `${username} has joined the chatroom`))
         console.log("hooooola")
-        db.query("select * from users", (err, users) => {
+        db.query("select * from users where room=?",[room], (err, users) => {
             if (err) throw err
             io.in(room).emit("users", users)
         })
@@ -70,7 +70,7 @@ io.on("connection", socket => {
                 console.log(user, "thee euser")
                 io.in(user.room).emit("message", formatMessage("Admin", `${user.name} has left the room`))
 
-                db.query("select * from users", (err, users) => {
+                db.query("select * from users where room = ?", [user.room], (err, users) => {
                     if (err) throw err
 
                     io.in(user.room).emit("users", users)
@@ -86,7 +86,7 @@ io.on("connection", socket => {
 
 
     socket.on("chatMessage", (info) => {
-        console.log(info)
+        console.log("vas o tereviente")
         const fullMessage = formatMessage(info.username, info.msg)
 
         //we usem io.emmit because it'll send to everyone (the messager included)
@@ -95,14 +95,10 @@ io.on("connection", socket => {
 
 })
 
-app.get("/xupona", (req, res) => {
-    console.log("commmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeee")
-    res.status(200).send({ data: "cooooooooooomemela guarra" })
-})
+let PORT = process.env.PORT || 8000
 
-
-server.listen("8000", () => {
-    console.log("server running")
+server.listen(PORT, () => {
+    console.log(`server running in port ${PORT}`)
 })
 
 

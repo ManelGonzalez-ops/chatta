@@ -7,7 +7,7 @@ createTable: ()=>{
     })
 },
 tableExists: (callback)=>{
-    db.query("show tables in chatapp", ((err, result)=>{
+    db.query("show tables in sql7356176", ((err, result)=>{
         callback(err,result)
     })
     )}
@@ -21,9 +21,6 @@ tableExists: (callback)=>{
           
         
      }) },
-
-    deleteUser: socketid=> "akka"
-,
 
     findUser: (socketid=> db.query("select * from users where id = ?", [socketid])
         )
