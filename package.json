@@ -4,7 +4,7 @@
   "description": "live chat with rooms",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
+    "start": "node server.js",
     "dev": "nodemon server"
   },
   "author": "Manel",
