@@ -23,7 +23,7 @@ const io = socketio(server)
 //     console.log("crear chatapp?")
 //     if (err) throw err
 // })
-db.query("use sql7356176git", err => {
+db.query("use sql7356176", err => {
     console.log("usar chatapp?")
     if (err) throw err
 })
