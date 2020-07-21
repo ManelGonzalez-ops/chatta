@@ -7,7 +7,7 @@ createTable: ()=>{
     })
 },
 tableExists: (callback)=>{
-    db.query("show tables in sql7356176", ((err, result)=>{
+    db.query("show tables in chatappp", ((err, result)=>{
         callback(err,result)
     })
     )}

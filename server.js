@@ -4,7 +4,7 @@ const path = require("path")
 const socketio = require("socket.io")
 const formatMessage = require("./utils/messages")
 const { setUser, countRoom } = require("./utils/users")
-const { createTable, tableExists, addUser, deleteUser, findUser } = require("./service")
+const { createTable, tableExists, addUser, findUser } = require("./service")
 
 const db = require("./db")
 db.connect((err) => {
@@ -23,7 +23,7 @@ const io = socketio(server)
 //     console.log("crear chatapp?")
 //     if (err) throw err
 // })
-db.query("use sql7356176", err => {
+db.query("use chatappp", err => {
     console.log("usar chatapp?")
     if (err) throw err
 })
